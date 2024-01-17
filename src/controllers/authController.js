@@ -21,7 +21,9 @@ const register = async (req, res, next) => {
   const [resObj, error] = await makeSqlQuery(sql, [email, passwordHash]);
 
   if (error) {
-    console.log('error ===', error);
+    console.log('register error ===');
+    next(error);
+    return;
   }
 
   // sekmingas yrasymas
