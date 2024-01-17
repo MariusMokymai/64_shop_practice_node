@@ -24,7 +24,16 @@ const register = async (req, res, next) => {
     console.log('error ===', error);
   }
 
-  res.json(resObj);
+  // sekmingas yrasymas
+  if (resObj.affectedRows === 1) {
+    res.status(201).json({
+      msg: 'user created',
+      id: resObj.insertId,
+    });
+  }
+
+  // kai uzklausa pavyko bet affectedRows !== 1
+  res.end();
 };
 
 module.exports = {
