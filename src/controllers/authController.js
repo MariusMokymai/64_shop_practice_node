@@ -3,7 +3,29 @@ const bcrypt = require('bcryptjs');
 const { makeSqlQuery } = require('../helpers');
 
 const login = async (req, res, next) => {
-  res.json('login ing');
+  // pasiimti email ir plain password
+  const { email, password } = req.body;
+
+  // ieskoti db customer pagal email
+  const sql = 'SELECT * FROM customers WHERE email=?';
+  const [rowsArr, error] = await makeSqlQuery(sql, [email]);
+
+  if (error) {
+    console.log('login error ===');
+    return next(error);
+  }
+
+  // ar radom useri
+  if (rowsArr.length === 0) {
+    console.log('user not found ===');
+    return next({ error: 'user not found' });
+  }
+
+  // radom useri
+
+  // patikrinti ar sutampa slaptazodiziai
+
+  res.json(rowsArr);
 };
 const register = async (req, res, next) => {
   // pasiimti duomenis kuriuos gavom
@@ -23,6 +45,7 @@ const register = async (req, res, next) => {
   if (error) {
     console.log('register error ===');
     next(error);
+    // new APIError('too h', status, type)
     return;
   }
 
