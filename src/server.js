@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
+const chalk = require('chalk');
 const cors = require('cors');
 const authRouter = require('./routes/authRoutes');
 
@@ -29,5 +30,5 @@ app.use((req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(chalk.blue(`Server is listening on port ${port}`));
 });
