@@ -30,3 +30,7 @@ CREATE TABLE `items` (
 ) ENGINE=InnoDB;
 
 
+-- add item 
+
+INSERT INTO `items` (`id`, `title`, `description`, `price`, `rating`, `stock`, `cat_id`, `img_url`) VALUES 
+(NULL, 'Book about HTML', 'Very important programing language. ', '10.99', '3.5', '50', '1', 'https://picsum.photos/id/2/800/600');
