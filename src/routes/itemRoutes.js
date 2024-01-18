@@ -13,4 +13,7 @@ itemsRouter.get('/items/:itemId', itemsController.getSingle);
 // POST /api/items - create
 itemsRouter.post('/items', itemsController.create);
 
+// DELETE /api/items - create
+itemsRouter.delete('/items/:itemId', itemsController.delete);
+
 module.exports = itemsRouter;

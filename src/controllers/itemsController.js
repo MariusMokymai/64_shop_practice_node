@@ -4,7 +4,7 @@ const { makeSqlQuery } = require('../helpers');
 module.exports = {
   getAll: async (req, res, next) => {
     // sukuriam sql
-    const sql = 'SELECT * FROM `items`';
+    const sql = 'SELECT * FROM `items` WHERE isDeleted=0';
 
     // makeSqlQuery
     const [itemsArr, error] = await makeSqlQuery(sql);
@@ -67,5 +67,26 @@ module.exports = {
       msg: 'success',
     });
   },
-  delete: async (req, res, next) => {},
+  delete: async (req, res, next) => {
+    const { itemId } = req.params;
+    // sukuriam sql
+    const sql = 'UPDATE `items` SET isDeleted=1 WHERE id=? LIMIT 1';
+
+    const [resObj, error] = await makeSqlQuery(sql, [itemId]);
+    console.log('resObj ===', resObj);
+    if (error) {
+      console.log(' delete item error ===', error);
+      return next(error);
+    }
+
+    if (resObj.affectedRows !== 1) {
+      // changedRows
+      console.log('delete item no rows affected', resObj);
+      return next(new APIError('something went wrong', 400));
+    }
+
+    res.status(200).json({
+      msg: 'success',
+    });
+  },
 };
