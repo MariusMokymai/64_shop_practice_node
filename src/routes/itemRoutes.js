@@ -10,4 +10,7 @@ itemsRouter.get('/items', itemsController.getAll);
 // GET all /api/items/1
 itemsRouter.get('/items/:itemId', itemsController.getSingle);
 
+// POST /api/items - create
+itemsRouter.post('/items', itemsController.create);
+
 module.exports = itemsRouter;
