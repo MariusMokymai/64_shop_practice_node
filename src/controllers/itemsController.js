@@ -1,3 +1,4 @@
+const APIError = require('../apiError/ApiError');
 const { makeSqlQuery } = require('../helpers');
 
 module.exports = {
@@ -24,6 +25,7 @@ module.exports = {
     const sql = 'SELECT * FROM `items` WHERE id=?';
 
     // makeSqlQuery
+    /** @type {[Array, Object]} itemsArr */
     const [itemsArr, error] = await makeSqlQuery(sql, [itemId]);
 
     // graznam klaida
@@ -32,9 +34,14 @@ module.exports = {
       return next(error);
     }
 
-    // arba items
+    // neradom nei vieno objekto
+    if (itemsArr.length === 0) {
+      return next(new APIError('Post was not found', 404));
+    }
 
-    res.json(itemsArr);
+    // arba item
+
+    res.json(itemsArr[0]);
   },
   create: async (req, res, next) => {},
   delete: async (req, res, next) => {},
