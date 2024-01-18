@@ -5,8 +5,12 @@ const dbConfig = {
   password: process.env.DB_PASSWORD,
 };
 
+const jwtSecret = process.env.JWT_SECRET;
+
+// console.log('jwtSecret ===', jwtSecret);
 // console.log('dbConfig ===', dbConfig);
 
 module.exports = {
   dbConfig,
+  jwtSecret,
 };
