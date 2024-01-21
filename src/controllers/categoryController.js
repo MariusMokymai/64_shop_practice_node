@@ -1,6 +1,16 @@
+const { makeSqlQuery } = require('../helpers');
+
 module.exports = {
   getAll: async (req, res, next) => {
-    //
-    res.json('get all CATS');
+    const sql = 'SELECT * FROM `categories`';
+
+    const [catsArr, error] = await makeSqlQuery(sql);
+
+    if (error) {
+      console.log('getAll categories error ===');
+      return next(error);
+    }
+
+    res.json(catsArr);
   },
 };
