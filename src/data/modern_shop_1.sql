@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 18, 2024 at 12:21 PM
+-- Generation Time: Jan 22, 2024 at 12:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -31,6 +31,17 @@ CREATE TABLE `categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`) VALUES
+(1, 'Books'),
+(2, 'Electronics'),
+(3, 'Clothes'),
+(4, 'Shoes'),
+(5, 'Furniture');
 
 -- --------------------------------------------------------
 
@@ -71,8 +82,47 @@ CREATE TABLE `items` (
   `rating` double(3,2) NOT NULL,
   `stock` int(10) NOT NULL,
   `cat_id` int(10) UNSIGNED NOT NULL,
-  `img_url` varchar(255) NOT NULL
+  `img_url` varchar(255) NOT NULL,
+  `isDeleted` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `items`
+--
+
+INSERT INTO `items` (`id`, `title`, `description`, `price`, `rating`, `stock`, `cat_id`, `img_url`, `isDeleted`) VALUES
+(1, 'Book about HTML', 'Very important programing language. ', 10.99, 3.50, 50, 1, 'https://picsum.photos/id/2/800/600', 0),
+(2, 'Course in Magic', 'All you need to know about Magic', 99.99, 4.98, 30, 2, 'https://picsum.photos/id/11/800/600', 1),
+(3, 'Course in Magic', 'All you need to know about Magic', 99.99, 4.98, 30, 2, 'https://picsum.photos/id/11/800/600', 1),
+(4, 'Train to Madagascar', 'Penguins and safari stuff', 2999.99, 4.05, 3, 3, 'https://picsum.photos/id/12/800/600', 0),
+(5, 'Book about HTML', 'Very important programing language. ', 10.99, 3.50, 50, 2, 'https://picsum.photos/id/2/800/600', 0),
+(6, 'Book about CSS', 'Very important programing language. ', 10.99, 3.50, 50, 5, 'https://picsum.photos/id/3/800/600', 0),
+(7, 'Book about JS', 'Very important programing language. ', 10.99, 3.50, 50, 3, 'https://picsum.photos/id/4/800/600', 0),
+(8, 'Book about PHP', 'Php is great language  ', 10.99, 3.50, 50, 1, 'https://picsum.photos/id/5/800/600', 0),
+(9, 'Book about SQL', 'Very important programing language. ', 10.99, 3.50, 50, 4, 'https://picsum.photos/id/6/800/600', 0),
+(10, 'Book about Python', 'Very important programing language. ', 10.99, 3.50, 50, 5, 'https://picsum.photos/id/7/800/600', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `item_id` int(10) UNSIGNED NOT NULL,
+  `customer_id` int(10) UNSIGNED NOT NULL,
+  `qty` int(10) UNSIGNED NOT NULL,
+  `total` decimal(12,2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `item_id`, `customer_id`, `qty`, `total`, `created_at`) VALUES
+(1, 1, 1, 1, 500.00, '2024-01-21 21:12:17');
 
 --
 -- Indexes for dumped tables
@@ -98,6 +148,12 @@ ALTER TABLE `items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -105,19 +161,25 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
