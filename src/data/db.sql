@@ -75,5 +75,5 @@ INSERT INTO `orders` (`id`, `item_id`, `customer_id`, `qty`, `total`) VALUES
 (NULL, '1', '1', '1', '500.00');
 
 -- select orders by customer id, join items table to get item details
-SELECT orders.id, orders.qty, orders.total, items.title, items.img_url FROM orders JOIN items ON orders.item_id = items.id WHERE orders.customer_id = 1;
+SELECT orders.id, orders.qty, orders.total, items.title, items.img_url, customers.email AS buyerEmail FROM orders JOIN items ON orders.item_id = items.id JOIN `customers` ON customers.id=orders.customer_id WHERE orders.customer_id = 2;
 
